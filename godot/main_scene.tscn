@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsg17lonixtm5"]
+
+[ext_resource type="Texture2D" uid="uid://oidicpi7ktab" path="res://icon.svg" id="1_00bvq"]
+
+[node name="MainScene" type="Node2D"]
+
+[node name="Player" type="Player" parent="."]
+position = Vector2(549, 301)
+scale = Vector2(1.92188, 1.92188)
+texture = ExtResource("1_00bvq")
