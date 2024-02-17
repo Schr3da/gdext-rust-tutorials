@@ -2,34 +2,36 @@
 
 [ext_resource type="Texture2D" uid="uid://oidicpi7ktab" path="res://icon.svg" id="1_00bvq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4b35"]
-size = Vector2(128, 128)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_by4lp"]
+size = Vector2(127, 128)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dn4ky"]
-size = Vector2(128, 127.479)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6ut1"]
+size = Vector2(126.959, 126.959)
 
 [node name="MainScene" type="Node2D"]
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(882, 300)
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
-position = Vector2(916, 287)
 texture = ExtResource("1_00bvq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(916, 287)
-shape = SubResource("RectangleShape2D_i4b35")
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_by4lp")
 
 [node name="Player" type="Player" parent="."]
-position = Vector2(549, 301)
+position = Vector2(388, 310)
 scale = Vector2(1.92188, 1.92188)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(1, 1)
 texture = ExtResource("1_00bvq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(-0.520355, -0.260162)
-shape = SubResource("RectangleShape2D_dn4ky")
+position = Vector2(0, -0.520325)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_b6ut1")
 
-[connection signal="area_entered" from="Player" to="Player" method="did_collide_with"]
-[connection signal="area_exited" from="Player" to="Player" method="did_exit_collision"]
+[connection signal="area_entered" from="Player" to="Player" method="on_collision_started"]
+[connection signal="area_exited" from="Player" to="Player" method="on_collision_end"]
