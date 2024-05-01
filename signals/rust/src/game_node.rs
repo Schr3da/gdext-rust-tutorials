@@ -27,7 +27,7 @@ impl GameNode {
 
     #[func]
     fn player_did_collide_with_static_body(&mut self) {
-        let player = self.base_mut().get_node("Player".into()).unwrap();
+        let player = self.base_mut().get_node_or_null("Player".into()).unwrap();
         self.base_mut().remove_child(player);
     }
     
