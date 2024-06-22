@@ -1,5 +1,5 @@
 use godot::engine::global::Key;
-use godot::engine::{CharacterBody2D, IArea2D, InputEvent};
+use godot::engine::{CharacterBody2D, ICharacterBody2D, InputEvent};
 use godot::prelude::*;
 use std::collections::HashMap;
 
@@ -12,7 +12,7 @@ pub struct Player {
 }
 
 #[godot_api]
-impl IArea2D for Player {
+impl ICharacterBody2D for Player {
     fn init(base: Base<CharacterBody2D>) -> Self {
         Self {
             base,
@@ -45,7 +45,6 @@ impl IArea2D for Player {
 
 #[godot_api]
 impl Player {
-
     #[signal]
     fn on_player_did_collide();
 
