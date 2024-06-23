@@ -1,5 +1,6 @@
-mod nodes;
 mod ecs;
+mod nodes;
+mod utils;
 
 use godot::prelude::*;
 

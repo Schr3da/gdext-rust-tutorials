@@ -9,11 +9,13 @@ use super::prelude::*;
 #[derive(Debug)]
 pub enum EcsRequest {
     ApplicationWillInitialise,
+    AddNewEcsSubscriber,
 }
 
 #[derive(Debug)]
 pub enum EcsResponse {
     ApplicationDidInitialise,
+    DidAddNewEcsSubscriber,
 }
 
 #[derive(Debug)]
@@ -32,7 +34,6 @@ pub struct Ecs {
 
 impl Ecs {
     pub fn launch(node_sender: EcsSender) -> (JoinHandle<()>, EcsSender) {
-
         let (ecs_sender, ecs_receiver) = channel();
 
         let scoped_ecs_sender = ecs_sender.clone();
@@ -44,7 +45,6 @@ impl Ecs {
                     Err(_) => continue,
                     Ok(e) => e,
                 };
-
 
                 match next {
                     EcsEvents::Request(req) => ecs.handle_request(req),
@@ -75,12 +75,18 @@ impl Ecs {
             EcsRequest::ApplicationWillInitialise => {
                 self.application_scheduler.run(&mut self.world);
             }
+            EcsRequest::AddNewEcsSubscriber => {
+                self.handle_response(EcsResponse::DidAddNewEcsSubscriber)
+            }
         };
     }
 
     fn handle_response(&mut self, res: EcsResponse) {
         match res {
             EcsResponse::ApplicationDidInitialise => {
+                _ = self.node_sender.send(EcsEvents::Response(res))
+            }
+            EcsResponse::DidAddNewEcsSubscriber => {
                 _ = self.node_sender.send(EcsEvents::Response(res))
             }
         };

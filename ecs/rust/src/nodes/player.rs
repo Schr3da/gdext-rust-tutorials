@@ -3,6 +3,9 @@ use godot::engine::{CharacterBody2D, ICharacterBody2D, InputEvent};
 use godot::prelude::*;
 use std::collections::HashMap;
 
+use crate::nodes::prelude::*;
+use crate::utils::prelude::*;
+
 #[derive(GodotClass)]
 #[class(base=CharacterBody2D)]
 pub struct Player {
@@ -18,6 +21,16 @@ impl ICharacterBody2D for Player {
             base,
             keys: vec![Key::LEFT, Key::RIGHT, Key::UP],
             key_states: HashMap::new(),
+        }
+    }
+
+    fn ready(&mut self) {
+        let id = self.base_mut().get_name();
+        let parent = self.base_mut().get_parent();
+
+        match EcsUtils::subscribe_to_ecs_response(id.to_string(), parent) {
+            false => godot_error!("Unable to subscribe node to ecs responses"),
+            true => godot_error!("Did subscribe node to ecs responses"),
         }
     }
 
@@ -47,6 +60,11 @@ impl ICharacterBody2D for Player {
 impl Player {
     #[signal]
     fn on_player_did_collide();
+
+    #[func]
+    pub fn handle_ecs_response(&mut self, response: GodotEcsResponse) {
+        godot_error!("received response for player: {:?}", response);
+    }
 
     fn apply_gravity(&mut self, mut velocity: Vector2) -> Vector2 {
         velocity.y += 1.0;
