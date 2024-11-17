@@ -1,5 +1,5 @@
-use godot::engine::global::Key;
-use godot::engine::{IArea2D, InputEvent, Area2D};
+use godot::classes::{Area2D, IArea2D, InputEvent};
+use godot::global::Key;
 use godot::prelude::*;
 use std::collections::HashMap;
 
@@ -56,7 +56,6 @@ impl IArea2D for Player {
 
 #[godot_api]
 impl Player {
-
     #[func]
     fn on_collision_started(&mut self, _item: Gd<Area2D>) {
         godot_print!("Collision started");
@@ -66,6 +65,4 @@ impl Player {
     fn on_collision_end(&mut self, _item: Gd<Area2D>) {
         godot_print!("Collision ended");
     }
-
-
 }

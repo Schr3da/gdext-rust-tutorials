@@ -1,4 +1,4 @@
-use godot::engine::INode;
+use godot::classes::INode;
 use godot::prelude::*;
 
 use crate::entry_node::EntryNode;
@@ -9,37 +9,33 @@ pub struct MainMenuNode {
     base: Base<Node>,
 }
 
-#[godot_api] 
-impl INode2D for MainMenuNode {
+#[godot_api]
+impl INode for MainMenuNode {
     fn init(base: Base<Node>) -> Self {
-        Self {
-            base,
-        }
+        Self { base }
     }
 }
 
 #[godot_api]
-impl MainMenuNode{
-
+impl MainMenuNode {
     #[func]
     pub fn new_game_pressed(&mut self) {
         let parent = match self.base().get_parent() {
             Some(p) => p,
             None => {
                 godot_error!("unable to find parent");
-                    return;
-            },
+                return;
+            }
         };
 
-        let mut node =  match parent.try_cast::<EntryNode>() {
+        let mut node = match parent.try_cast::<EntryNode>() {
             Err(_) => {
                 godot_error!("Unable to cast to Entry Node");
-                    return;
-            },
+                return;
+            }
             Ok(n) => n,
         };
 
         node.bind_mut().new_game();
-
     }
 }

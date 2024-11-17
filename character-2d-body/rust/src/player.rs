@@ -1,5 +1,5 @@
-use godot::engine::global::Key;
-use godot::engine::{CharacterBody2D, ICharacterBody2D, InputEvent};
+use godot::classes::{CharacterBody2D, ICharacterBody2D, InputEvent};
+use godot::global::Key;
 use godot::prelude::*;
 use std::collections::HashMap;
 

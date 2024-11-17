@@ -1,5 +1,5 @@
-use godot::engine::global::Key;
-use godot::engine::{ISprite2D, InputEvent, Sprite2D};
+use godot::classes::{ISprite2D, InputEvent, Sprite2D};
+use godot::global::Key;
 use godot::prelude::*;
 use std::collections::HashMap;
 

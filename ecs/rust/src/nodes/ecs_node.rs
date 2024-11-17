@@ -1,4 +1,4 @@
-use godot::engine::INode2D;
+use godot::classes::INode2D;
 use godot::prelude::*;
 use std::sync::mpsc::{channel, Receiver};
 use std::thread::JoinHandle;
@@ -67,7 +67,7 @@ impl INode2D for EcsNode {
 
         match self
             .base_mut()
-            .try_emit_signal("on_received_ecs_response".into(), &[next.to_variant()])
+            .try_emit_signal("on_received_ecs_response", &[next.to_variant()])
         {
             Err(e) => godot_error!("{:?}", e),
             Ok(_) => {}

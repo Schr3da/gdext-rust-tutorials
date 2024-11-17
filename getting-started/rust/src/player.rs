@@ -1,4 +1,4 @@
-use godot::engine::{ISprite2D, Sprite2D};
+use godot::classes::{ISprite2D, Sprite2D};
 use godot::prelude::*;
 
 #[derive(GodotClass)]

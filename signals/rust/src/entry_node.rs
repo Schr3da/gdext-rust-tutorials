@@ -1,4 +1,4 @@
-use godot::engine::INode2D;
+use godot::classes::INode2D;
 use godot::prelude::*;
 
 #[derive(GodotClass)]
@@ -9,7 +9,7 @@ pub struct EntryNode {
     game_scene: Gd<PackedScene>,
 }
 
-#[godot_api] 
+#[godot_api]
 impl INode2D for EntryNode {
     fn init(base: Base<Node2D>) -> Self {
         let main_menu_scene: Gd<PackedScene> = load("res://main_menu.tscn");
@@ -39,7 +39,7 @@ impl EntryNode {
         };
 
         self.base_mut().get_children().clear();
-        self.base_mut().add_child(instance);
+        self.base_mut().add_child(&instance);
     }
 
     pub fn new_game(&mut self) {
@@ -54,9 +54,9 @@ impl EntryNode {
         let mut base = self.base_mut();
 
         base.get_children().iter_shared().for_each(|c| {
-            base.remove_child(c);
+            base.remove_child(&c);
         });
 
-        base.add_child(instance);
+        base.add_child(&instance);
     }
 }

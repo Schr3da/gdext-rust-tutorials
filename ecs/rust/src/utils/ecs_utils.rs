@@ -1,4 +1,4 @@
-use godot::{engine::Node, obj::*};
+use godot::{classes::Node, obj::*};
 
 use crate::ecs::prelude::*;
 use crate::nodes::prelude::*;
@@ -22,14 +22,14 @@ impl EcsUtils {
             Some(e) => e,
         };
 
-        let next = match parent.try_get_node_as::<Node>(id) {
+        let next = match parent.try_get_node_as::<Node>(&id) {
             None => return false,
             Some(n) => n,
         };
 
         let cb = next.callable("handle_ecs_response");
 
-        ecs.connect("on_received_ecs_response".into(), cb);
+        ecs.connect("on_received_ecs_response", &cb);
 
         ecs.bind_mut()
             .send_ecs_request(EcsRequest::AddNewEcsSubscriber);

@@ -20,7 +20,7 @@ impl INode2D for GameNode {
             .callable("player_did_collide_with_static_body");
 
         let mut player = self.base_mut().get_node_as::<Player>("Player");
-        player.connect("on_player_did_collide".into(), callable);
+        player.connect("on_player_did_collide", &callable);
     }
 }
 
@@ -28,7 +28,7 @@ impl INode2D for GameNode {
 impl GameNode {
     #[func]
     fn player_did_collide_with_static_body(&mut self) {
-        let player = self.base_mut().get_node_or_null("Player".into()).unwrap();
-        self.base_mut().remove_child(player);
+        let player = self.base_mut().get_node_or_null("Player").unwrap();
+        self.base_mut().remove_child(&player);
     }
 }

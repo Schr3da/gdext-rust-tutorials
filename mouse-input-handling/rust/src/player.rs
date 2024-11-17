@@ -1,4 +1,4 @@
-use godot::engine::{ISprite2D, InputEvent, InputEventMouse, Sprite2D};
+use godot::classes::{ISprite2D, InputEvent, InputEventMouse, Sprite2D};
 use godot::prelude::*;
 
 #[derive(GodotClass)]

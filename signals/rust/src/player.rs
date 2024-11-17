@@ -1,5 +1,5 @@
-use godot::engine::global::Key;
-use godot::engine::{CharacterBody2D, ICharacterBody2D, InputEvent};
+use godot::classes::{CharacterBody2D, ICharacterBody2D, InputEvent};
+use godot::global::Key;
 use godot::prelude::*;
 use std::collections::HashMap;
 
@@ -29,7 +29,7 @@ impl ICharacterBody2D for Player {
         let mut base = self.base_mut();
         if let Some(c) = base.move_and_collide(velocity) {
             velocity = velocity.slide(c.get_normal());
-            base.emit_signal("on_player_did_collide".into(), &[]);
+            base.emit_signal("on_player_did_collide", &[]);
         }
 
         base.move_and_collide(velocity);

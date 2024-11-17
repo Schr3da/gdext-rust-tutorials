@@ -1,8 +1,8 @@
-use godot::engine::Label;
+use godot::classes::Label;
 use godot::obj::{Base, NewAlloc};
 use godot::prelude::*;
 use godot::{
-    engine::{GridContainer, IGridContainer},
+    classes::{GridContainer, IGridContainer},
     register::{godot_api, GodotClass},
 };
 
@@ -29,8 +29,8 @@ impl CustomGrid {
         for x in 0..10 {
             let mut label = Label::new_alloc();
             let text = format!("Item: {}", x).to_godot();
-            label.set_text(text);
-            self.base.to_gd().add_child(label.upcast());
+            label.set_text(&text);
+            self.base.to_gd().add_child(&label.upcast::<Node>());
         }
     }
 }
