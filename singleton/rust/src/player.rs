@@ -1,7 +1,8 @@
-use godot::classes::{ISprite2D, Sprite2D};
+use godot::classes::{Engine, ISprite2D, Sprite2D};
 use godot::prelude::*;
 
 use crate::singleton::EXAMPLE_SINGLETON;
+use crate::MyGodotSingleton;
 
 #[derive(GodotClass)]
 #[class(base=Sprite2D)]
@@ -15,9 +16,14 @@ impl ISprite2D for Player {
         match EXAMPLE_SINGLETON.lock() {
             Err(e) => godot_error!("{:?}", e),
             Ok(mut s) => {
-                s.add("Hello".to_string());
+                s.add("EXAMPLE_SINGLETON: Not a registered Godot Singleton".to_string());
                 s.print();
             }
+        };
+
+        match Engine::singleton().get_singleton("MyGodotSingleton") {
+            None => godot_error!("Failed to get singleton"),
+            Some(s) => s.try_cast::<MyGodotSingleton>().unwrap().bind().print(),
         };
 
         Self { base }
